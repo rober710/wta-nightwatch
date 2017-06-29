@@ -15,15 +15,15 @@ module.exports = {
         browser.waitForElementPresent('div[class="set set1"]', 500);
         browser.waitForJqueryAjaxRequest(1000);
         browser.getAttribute('div.livescoredetails.players div.player-name a', 'title', function (res) {
-            this.assert.equal(typeof res, "object");
-            this.assert.equal(res.status, 0);
-            this.assert.notEqual(res.value, null);
-            this.assert.notEqual(res.value, undefined);
-            this.assert.equal(res.value.trim() === '', false);
+            this.assert.equal(typeof res, "object", "Response is an object.");
+            this.assert.equal(res.status, 0, "Response status is 0 (success).");
+            this.assert.notEqual(res.value, null, "Attribute's value is not null.");
+            this.assert.notEqual(res.value, undefined, "Attribute's value is not undefined.");
+            this.assert.equal(res.value.trim() === '', false, "Attribute's value is not empty. Ajax completed successfully.");
         });
         browser.elements('css selector', 'div.data.livescore-item.group', function (response) {
-            this.assert.equal(response.status, 0);
-            this.assert.equal(response.value.length > 1, true);
+            this.assert.equal(response.status, 0, "Response status is 0 (success).");
+            this.assert.equal(response.value.length > 1, true, "Livescores rendered.");
         });
     },
 
