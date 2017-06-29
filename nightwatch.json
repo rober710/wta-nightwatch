@@ -18,7 +18,7 @@
   },
   "test_settings": {
     "default": {
-      "launch_url": "http://wtatennis.com",
+      "launch_url": "http://wta2-staging.cloudapp.net",
       "silent": true,
       "log_screenshot_data": false,
       "desiredCapabilities": {
