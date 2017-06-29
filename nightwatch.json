@@ -1,0 +1,58 @@
+{
+  "src_folders": [ "tests" ],
+  "output_folder": "reports",
+  "custom_commands_path": "node_modules/nightwatch-custom-commands-assertions/js/commands",
+  "custom_assertions_path": "node_modules/nightwatch-custom-commands-assertions/js/assertions",
+  "page_objects_path": "",
+  "selenium": {
+    "start_process": true,
+    "server_path": "./bin/selenium.jar",
+    "log_path": "./reports",
+    "host": "127.0.0.1",
+    "port": 4444,
+    "cli_args": {
+      "webdriver.chrome.driver": "./bin/chromedriver",
+      "webdriver.gecko.driver" : "",
+      "webdriver.edge.driver" : ""
+    }
+  },
+  "test_settings": {
+    "default": {
+      "launch_url": "http://wtatennis.com",
+      "silent": true,
+      "log_screenshot_data": false,
+      "desiredCapabilities": {
+        "browserName": "chrome",
+        "chromeOptions": {
+          "args": [
+            "disable-web-security",
+            "test-type",
+            "incognito",
+            "disable-extensions"
+          ]
+        },
+        "javascriptEnabled": true,
+        "acceptSslCerts": true
+      }
+    },
+
+    "firefox": {
+      "desiredCapabilities": {
+        "browserName": "firefox",
+        "marionette": true
+      }
+    },
+
+    "edge": {
+      "desiredCapabilities": {
+        "browserName": "MicrosoftEdge"
+      }
+    },
+
+    "safari": {
+      "desiredCapabilities": {
+        "browserName": "safari::: TODO:!"
+      }
+    }
+  }
+}
