@@ -2,6 +2,9 @@
  * Script to test the home page.
  */
 
+var path = require('path');
+var resemble = require('resemble');
+
 module.exports = {
     before: browser => {
         console.log('Testing home page...');
@@ -24,6 +27,11 @@ module.exports = {
         browser.elements('css selector', 'div.data.livescore-item.group', function (response) {
             this.assert.equal(response.status, 0, "Response status is 0 (success).");
             this.assert.equal(response.value.length > 1, true, "Livescores rendered.");
+        });
+        //browser.saveScreenshot(path.join(__dirname, 'pantallazo-prod.png'));
+        resemble.resemble(path.join(__dirname, 'pantallazo-prod.png')).compareTo(path.join(__dirname, 'pantallazo.png'))
+            .ignoreAntialiasing().onComplete(function () {
+            console.log(arguments);
         });
     },
 
