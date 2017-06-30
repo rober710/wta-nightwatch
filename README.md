@@ -1,4 +1,4 @@
-# Nightwatch tests scripts for WTA site
+# Nightwatch test scripts for WTA site
 
 ## Requirements
 For this project you need to have Java installed (preferably JDK8+) and ImageMagick.
