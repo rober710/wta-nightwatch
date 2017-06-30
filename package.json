@@ -16,7 +16,6 @@
   "dependencies": {
     "nightwatch": "^0.9.16",
     "nightwatch-custom-commands-assertions": "^1.0.5",
-    "resemble": "^1.4.0",
     "selenium-download": "^2.0.10"
   }
 }
