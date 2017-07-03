@@ -58,6 +58,11 @@ module.exports = {
         }).perform(function (client, done) {
             // Check all required menu items have been found.
             client.assert.equal(menuItems.size, 0, 'All required menu items found.');
+            // Hide the submenu.
+            client.execute(function () {
+                var submenu = $('#rm-no-id-2');
+                submenu.addClass('sf-hidden');
+            });
             done();
         });
     },
@@ -152,6 +157,71 @@ module.exports = {
         }).perform(function (client, done) {
             client.assert.equal(latestVideosFoundWithImages, true, 'Latest videos found and has images.');
             done();
+        });
+    },
+
+    'Rankings': browser => {
+        // Check if the rankings block exists
+        browser.waitForElementVisible('#block-luxbox-ranking-luxbox-ranking-tiles-highlight', 500,
+            'Rankings block found.');
+        browser.getLocationInView('#block-luxbox-ranking-luxbox-ranking-tiles-highlight', function (result) {
+            this.assert.equal(result.status, 0, 'Scrolling to show blocks.');
+        }).elements('css selector', '#block-luxbox-ranking-luxbox-ranking-tiles-highlight .ranking-wrapper',
+            function (result) {
+                this.assert.equal(result.status, 0, 'Ranking tiles found.');
+                this.assert.equal(result.value.length, 2, 'Checking there are two ranking tiles.');
+                // Check both have singles and doubles tabs.
+                let wtaRankings = result.value[0].ELEMENT;
+                let prtsRankings = result.value[1].ELEMENT;
+                this.elementIdElements(wtaRankings, 'css selector', '.singles-container, .doubles-container',
+                    function (tabsResult) {
+                    this.assert.equal(tabsResult.status, 0, 'Searching for tabs on WTA Rankings block.');
+                    this.assert.equal(tabsResult.value.length, 2, 'Found singles and doubles tabs.');
+                    // Check there are other slides.
+                    this.elementIdElements(tabsResult.value[0].ELEMENT, 'css selector', '.slick-slide',
+                        function (slidesResult) {
+                        this.assert.equal(slidesResult.status, 0, 'Searching for singles ranking slides.');
+                        this.assert.equal(slidesResult.value.length > 1, true,
+                            'There is more than one singles ranking slide: ' + slidesResult.value.length);
+                    }).elementIdElements(tabsResult.value[1].ELEMENT, 'css selector', '.slick-slide',
+                        function (slidesResult) {
+                        this.assert.equal(slidesResult.status, 0, 'Searching for doubles ranking slides.');
+                        this.assert.equal(slidesResult.value.length > 1, true,
+                            'There is more than one doubles ranking slide: ' + slidesResult.value.length);
+                    });
+                }).elementIdElements(prtsRankings, 'css selector', '.roadsingles-container, .roaddoubles-container',
+                    function (tabsResult) {
+                    this.assert.equal(tabsResult.status, 0, 'Searching for tabs on Porsche Road block.');
+                    this.assert.equal(tabsResult.value.length, 2, 'Found singles and doubles tabs.');
+                    this.elementIdElements(tabsResult.value[0].ELEMENT, 'css selector', '.slick-slide',
+                        function (slidesResult) {
+                            this.assert.equal(slidesResult.status, 0, 'Searching for PRTS singles ranking slides.');
+                            this.assert.equal(slidesResult.value.length > 1, true,
+                                'There is more than one singles ranking slide: ' + slidesResult.value.length);
+                        }).elementIdElements(tabsResult.value[1].ELEMENT, 'css selector', '.slick-slide',
+                        function (slidesResult) {
+                            this.assert.equal(slidesResult.status, 0, 'Searching for PRTS doubles ranking slides.');
+                            this.assert.equal(slidesResult.value.length > 1, true,
+                                'There is more than one doubles ranking slide: ' + slidesResult.value.length);
+                        });
+                });
+        });
+    },
+
+    'Partners Block': browser => {
+        browser.getLocationInView('#block-luxbox-layouts-luxbox-partners-block', function (result) {
+            this.assert.equal(result.status, 0, 'Scrolling to partners block.');
+        }).elements('css selector', '#block-luxbox-layouts-luxbox-partners-block h3.block__title', function (result) {
+            this.assert.equal(result.status, 0, 'Searching for partners block title.');
+            this.assert.equal(result.value.length, 1, 'Block title found.');
+            this.elementIdText(result.value[0].ELEMENT, function (textResult) {
+                this.assert.equal(textResult.status, 0, 'Retrieving text of the block title.');
+                this.assert.equal(textResult.value.toLowerCase(), 'global partners', 'Checking block title text.');
+            });
+        }).elements('css selector', '#block-luxbox-layouts-luxbox-partners-block a img', function (imgResult) {
+            this.assert.equal(imgResult.status, 0, 'Searching for partners logos.');
+            this.assert.equal(imgResult.value.length > 0, true, 'There is at least one partner logo: '
+                + imgResult.value.length);
         });
     },
 

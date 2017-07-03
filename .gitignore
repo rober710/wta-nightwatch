@@ -4,4 +4,4 @@ dist
 .DS_Store
 bin
 reports
-
+firefox-profiles/nightwatch/cache2
