@@ -62,6 +62,39 @@
       "desiredCapabilities": {
         "browserName": "safari::: TODO:!"
       }
+    },
+
+    "phantomjs": {
+      "selenium_port": 4444,
+      "selenium_host": "127.0.0.1",
+      "desiredCapabilities": {
+        "browserName": "phantomjs",
+        "javascriptEnabled" : true,
+        "acceptSslCerts" : true,
+        "phantomjs.cli.args" : [],
+        "screenWidth": 1280
+      },
+      "screenshots": {
+        "enabled": true,
+        "path": "./screenshots/tests"
+      }
+    },
+
+    "phantomjs:baseline": {
+      "launch_url": "http://wtatennis.com",
+      "selenium_port": 4444,
+      "selenium_host": "127.0.0.1",
+      "desiredCapabilities": {
+        "browserName": "phantomjs",
+        "javascriptEnabled" : true,
+        "acceptSslCerts" : true,
+        "phantomjs.cli.args" : [],
+        "screenWidth": 1280
+      },
+      "screenshots": {
+        "enabled": true,
+        "path": "./screenshots/baseline"
+      }
     }
   }
 }

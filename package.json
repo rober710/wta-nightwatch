@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "nightwatch",
+    "test:visual": "nightwatch -e phantomjs --test visual-tests/*",
     "test:all": "nightwatch -e default,firefox",
-    "setup:chrome": "node selenium-setup"
+    "setup:chrome": "node selenium-setup",
+    "baseline-img": "nightwatch -e phantomjs:baseline --test scripts/baselines.js"
   },
   "keywords": [
     "nightwatch",
@@ -17,6 +19,7 @@
   "dependencies": {
     "nightwatch": "^0.9.16",
     "nightwatch-custom-commands-assertions": "^1.0.5",
+    "resemble": "^1.4.0",
     "selenium-download": "^2.0.10"
   }
 }
