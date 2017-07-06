@@ -6,6 +6,9 @@ var path = require('path');
 
 module.exports = {
     before: browser => {
+        let screenWidth = browser.options.desiredCapabilities.screenWidth;
+        console.log('Resizing window to ' + screenWidth + ' x 800...');
+        browser.resizeWindow(screenWidth, 800);
         console.log('Testing home page...');
         browser.url(browser.launchUrl);
     },
@@ -67,7 +70,7 @@ module.exports = {
         });
     },
 
-    Livescores : browser => {
+    Livescores : !(browser => {
         browser.waitForElementVisible('div[class="content livescore-container livescore-widget"]', 2000);
         browser.waitForJqueryAjaxRequest(1000);
         browser.waitForElementPresent('div[class="livescoredetails players"]', 500);
@@ -85,7 +88,7 @@ module.exports = {
             this.assert.equal(response.status, 0, "Response status is 0 (success).");
             this.assert.equal(response.value.length > 1, true, "Livescores rendered.");
         });
-    },
+    }),
 
     'Main Highlight Image': browser => {
         let highlightImageSelector = 'div.node--article.news.node--highlight-news.node--article--highlight-news'

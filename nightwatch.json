@@ -25,12 +25,14 @@
       "log_screenshot_data": false,
       "desiredCapabilities": {
         "browserName": "chrome",
+        "screenWidth": 1280,
         "chromeOptions": {
           "args": [
             "disable-web-security",
             "test-type",
             "incognito",
-            "disable-extensions"
+            "disable-extensions",
+            "window-size=1280,800"
           ]
         },
         "javascriptEnabled": true,
@@ -43,6 +45,7 @@
       "desiredCapabilities": {
         "browserName": "firefox",
         "marionette": true,
+        "screenWidth": 1280,
         "javascriptEnabled": true,
         "moz:firefoxOptions": {
           "log": {
