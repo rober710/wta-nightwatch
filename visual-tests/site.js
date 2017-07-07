@@ -30,9 +30,6 @@ module.exports = {
     'Taking screenshot of Home': browser => {
         browser.url(browser.launchUrl)
             .waitForElementVisible('#superfish-1', 5000, 'Waiting for menu to be visible.')
-            .waitForElementVisible('div[class="content livescore-container livescore-widget"]', 2000,
-                'Waiting for livescores to be visible.')
-            .waitForJqueryAjaxRequest(1000)
             .saveScreenshot(path.join(testsPath, 'home.png'), function (saveResult) {
                 browser.assert.equal(saveResult.state, 'success', 'Save home screenshot success.');
                 let baselineFile = path.join(baselinePath, 'home.png');
