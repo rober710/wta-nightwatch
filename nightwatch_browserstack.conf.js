@@ -1,7 +1,7 @@
 /* Browserstack Nightwatch Configuration */
 
-const BROWSERSTACK_USER = "user";
-const BROWSERSTACK_KEY = "key";
+const BROWSERSTACK_USER = "robertobalarezo1";
+const BROWSERSTACK_KEY = "pwHUrxcSs8Gs3xwj8zLu";
 const LAUNCH_URL_PREFIX = "http://wtatennis.com";
 
 let commonCapabilities = {
@@ -68,6 +68,18 @@ let nightwatchConfig = {
                 "browser": "IE",
                 "browser_version": "10.0",
                 "resolution": "1280x800"
+            }
+        },
+        "osxcaptn:safari9.1:1280": {
+            "desiredCapabilities": {
+                'os': 'OS X',
+                'os_version': 'El Capitan',
+                'browser': 'Safari',
+                'browser_version': '9.1',
+                'resolution': '1280x960',
+                "safariOptions": {
+                    "cleanSession": true
+                }
             }
         }
     }

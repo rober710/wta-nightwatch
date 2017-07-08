@@ -7,7 +7,7 @@
     "test": "nightwatch",
     "test:visual": "nightwatch -e phantomjs --test visual-tests/*",
     "test:all": "nightwatch -e default,firefox",
-    "test:browserstack": "nightwatch -c nightwatch_browserstack.conf.js -e win7:chrome50:1280,win7:firefox40:1280,win7:ie10:1280",
+    "test:browserstack": "nightwatch -c nightwatch_browserstack.conf.js -e win7:chrome50:1280,win7:firefox40:1280,win7:ie10:1280,osxcaptn:safari9.1:1280",
     "setup:chrome": "node selenium-setup",
     "baseline-img": "nightwatch -e phantomjs:baseline --test scripts/baselines.js"
   },
