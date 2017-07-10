@@ -15,8 +15,10 @@ module.exports = {
 
     Menu: browser => {
         console.log('Checking menu items...');
-        let menuItems = new Set(['players', 'tournaments', 'scores', 'stats', 'rankings', 'head to head', 'news',
+        let menuItems = new Set(['players', 'tournaments', 'scores', 'stats', 'rankings', 'news',
             'photos', 'videos', 'health', 'shop', 'en español',
+            // Players submenu items:
+            'head to head', 'player index',
             // Tournament submenu items:
             'active and upcoming', 'calendar', 'wta finals', 'where to watch'
         ]);
@@ -25,7 +27,7 @@ module.exports = {
 
         // Make submenu visible for this test so we can retrieve their texts.
         browser.execute(function () {
-            var submenu = $('#rm-no-id-2');
+            var submenu = $('#rm-no-id-2, #rm-no-id-3');
             submenu.removeClass('sf-hidden');
             submenu.css('display', 'block');
         });
@@ -33,6 +35,8 @@ module.exports = {
         // Here we check all levels at once. If you want to check only first level, change selector to
         // #superfish-1 li.sf-depth-1 > a
         let menuSelector = '#superfish-1 li a';
+        let playersMenuId = null;
+        let tournamentsMenuId = null;
 
         browser.perform(function (done) {
             console.log('Calling menu items');
@@ -50,6 +54,12 @@ module.exports = {
                             let menuItemText = resultText.value.toLowerCase().replace(' »', '');
                             console.log('Checking menu item ' + menuItemText);
                             menuItems.delete(menuItemText);
+
+                            if (menuItemText === 'players') {
+                                playersMenuId = element.ELEMENT;
+                            } else if (menuItemText === 'tournaments') {
+                                tournamentsMenuId = element.ELEMENT;
+                            }
                         }
 
                         if (++processedItems === menuItemsResult.value.length) {
@@ -63,10 +73,40 @@ module.exports = {
             client.assert.equal(menuItems.size, 0, 'All required menu items found.');
             // Hide the submenu.
             client.execute(function () {
-                var submenu = $('#rm-no-id-2');
+                var submenu = $('#rm-no-id-2, #rm-no-id-3');
                 submenu.addClass('sf-hidden');
             });
             done();
+        }).perform(function (client, done) {
+            if (playersMenuId !== null) {
+                client.moveTo(playersMenuId, null, null, result => {
+                    if (result.status === 0) {
+                        client.waitForElementVisible('#rm-no-id-2', 1500, 'Players submenu displayed when mouse '
+                            + 'over it.');
+                        done();
+                    } else {
+                        console.log(result);
+                        throw new Error('Could not move mouse to players submenu.');
+                    }
+                });
+            } else {
+                throw new Error('Players menu not found!');
+            }
+        }).perform(function (client, done) {
+            if (tournamentsMenuId !== null) {
+                client.moveTo(tournamentsMenuId, null, null, result => {
+                    if (result.status === 0) {
+                        client.waitForElementVisible('#rm-no-id-3', 1500, 'Tournaments submenu displayed when mouse '
+                            + 'over it.');
+                        done();
+                    } else {
+                        console.log(result);
+                        throw new Error('Could not move mouse to tournaments submenu.');
+                    }
+                });
+            } else {
+                throw new Error('Tournaments submenu not found!');
+            }
         });
     },
 
