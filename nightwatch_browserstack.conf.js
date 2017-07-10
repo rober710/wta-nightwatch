@@ -1,7 +1,7 @@
 /* Browserstack Nightwatch Configuration */
 
-const BROWSERSTACK_USER = "robertobalarezo1";
-const BROWSERSTACK_KEY = "pwHUrxcSs8Gs3xwj8zLu";
+const BROWSERSTACK_USER = "myuser";
+const BROWSERSTACK_KEY = "mykey";
 const LAUNCH_URL_PREFIX = "http://wtatennis.com";
 
 let commonCapabilities = {
@@ -19,6 +19,7 @@ function getScreenWidth(resolutionStr) {
         throw new Error('Invalid resolution string: ' + resolutionStr);
     }
 
+    // FIXME: Check for NaN after parse.
     return parseInt(parts[1]);
 }
 
